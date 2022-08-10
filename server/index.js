@@ -2,10 +2,13 @@ import bodyParser from "body-parser";
 import core from "cors";
 import  express  from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 import postRoutes from "./routes/posts.js";
 
 const app=express();
+dotenv.config();
+
 
 
 
@@ -15,11 +18,10 @@ app.use (core());
 
 app.use('/posts',postRoutes);
 
-const CONNECTION_URL ="mongodb+srv://admin-imtiyaz:TEST123@cluster0.etkmc.mongodb.net/?retryWrites=true&w=majority";
 const PORT =process.env.PORT || 5000;
 
 mongoose
-  .connect(CONNECTION_URL)
+  .connect(process.env.CONNECTION_URL,{useNewUrlParser: true, useUnifiedTopology: true} )
   .then(() =>
     app.listen(PORT, () => console.log(`server running on port: ${PORT}`))
   )

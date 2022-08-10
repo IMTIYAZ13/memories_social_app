@@ -88,7 +88,7 @@ const Post = ({ post, setCurrentId }) => {
             //label="Like"
           />
           <div style={{ marginLeft: "-18px", display: "inline-flex" }}>
-            {post.likeCount}
+            {/* {post.likeCount} */}
           </div>
         </div>
         <Button
