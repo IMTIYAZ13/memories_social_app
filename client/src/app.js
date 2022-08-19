@@ -1,47 +1,23 @@
-import React, { useEffect,useState } from "react";
-import { Container,AppBar,Typography,Grow,Grid } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { Container } from '@material-ui/core';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import {getPosts} from './actions/posts'
-import Posts from "./components/Posts/Posts";
-import Form from "./components/Form/Form";
-import memories from "./images/memories.png"
 
-import useStyles from "./styles";
+import Navbar from "./components/Navbar/navbar";
+import Home from "./components/Home/home";
+import Auth from "./components/Auth/auth";
 
 const App = () => {
-    const [currentId,setCurrentId]=useState(null);
-    const classes = useStyles();
-    const dispatch = useDispatch();
-
-    useEffect(()=> {    
-        dispatch(getPosts());
-    },[currentId,dispatch]);
-    
-    return(
-        <Container maxWidth='lg'>
-            <AppBar className={classes.appBar} position="static" color="inherit">
-                <div style={{display:"flex", justifyContent:"center"}}>
-                    <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
-                    <img className={classes.image} src={memories} alt="memories" height="90" width="90"  />
-                </div>  
-            </AppBar>
-            <Grow in>
-                <Container>
-
-                    <Grid container className={classes.mainContainer} justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Posts setCurrentId ={setCurrentId} />
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                            <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>    
-        </Container>
-    )
-
-}
+    return (
+        <Router>
+            <Container maxWidth='lg'>
+                <Navbar />
+                <Routes>
+                    <Route exact path='/' element={<Home/>} />
+                    <Route exact path='/auth' element={<Auth/>} />
+                </Routes>
+            </Container>
+        </Router>
+    );
+};
 export default App;
