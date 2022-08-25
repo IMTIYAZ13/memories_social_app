@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { GoogleLogin } from 'react-google-login';
+// import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@react-oauth/google';
 import Input from './input';
 import Icon from './icon';
 
@@ -32,7 +33,10 @@ const Auth = () => {
         console.log(res);
     }; 
 
-    const googleError = () => alert('Google Sign In was unsuccessful. Try again later'); 
+    const googleError = (err) => {
+      console.log(err);
+      alert('Google Sign In was unsuccessful. Try again later');
+    }  
 
     return (
         <Container component="main" maxWidth="xs">
@@ -57,7 +61,7 @@ const Auth = () => {
             { isSignup ? 'Sign Up' : 'Sign In' }
           </Button>
           <GoogleLogin
-            clientId="CLIENT-ID"
+            // clientId = "326579534717-2cjt4j4dfs7gu140tq357i0p0e8e6g1q.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Google Sign In
