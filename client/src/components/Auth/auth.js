@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useDispatch } from 'react-redux';
+import jwt_deocde from "jwt-decode";
 // import { GoogleLogin } from 'react-google-login';
 import { GoogleLogin } from '@react-oauth/google';
 import Input from './input';
@@ -11,6 +13,7 @@ import useStyles from './styles';
 
 const Auth = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [showPassword,setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
 
@@ -29,9 +32,17 @@ const Auth = () => {
         setShowPassword(false);
       };
 
-    const googleSuccess = async (res) => {
-        console.log(res);
-    }; 
+      const googleSuccess = async (user) => {
+        let token = user.credential;
+        let result = jwt_deocde(token);
+        // console.log(payload);
+        // console.log("token : ",userCred);
+        try {
+          dispatch({ type: 'AUTH', data: { result, token } });
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
     const googleError = (err) => {
       console.log(err);

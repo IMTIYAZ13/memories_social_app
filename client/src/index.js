@@ -7,7 +7,7 @@ import { createStore } from "redux";
 
 
 
-import reducers from "./reducers";
+import { reducers } from "./reducers";
 import App from "./app";
 import './index.css';
 
