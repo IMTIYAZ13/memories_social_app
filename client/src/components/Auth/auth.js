@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import jwt_deocde from "jwt-decode";
 // import { GoogleLogin } from 'react-google-login';
 import { GoogleLogin } from '@react-oauth/google';
@@ -14,6 +15,7 @@ import useStyles from './styles';
 const Auth = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showPassword,setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
 
@@ -39,6 +41,7 @@ const Auth = () => {
         // console.log("token : ",userCred);
         try {
           dispatch({ type: 'AUTH', data: { result, token } });
+          navigate("/");
         } catch (error) {
           console.log(error);
         }
