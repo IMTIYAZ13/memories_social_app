@@ -6,27 +6,39 @@ import { useNavigate } from "react-router-dom";
 import jwt_deocde from "jwt-decode";
 // import { GoogleLogin } from 'react-google-login';
 import { GoogleLogin } from '@react-oauth/google';
+import { signin, signup } from '../../actions/auth';
 import Input from './input';
 import Icon from './icon';
 
 
 import useStyles from './styles';
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 const Auth = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [formData, setFormData] = useState(initialState);
     const [showPassword,setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
+    
+
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      console.log(formData);
 
+      if (isSignup) {
+        dispatch(signup(formData, navigate));
+      } else {
+        dispatch(signin(formData, navigate));
+      }
     };
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+      setFormData({...formData, [e.target.name]: e.target.value });
     };
 
     const switchMode = () => {
