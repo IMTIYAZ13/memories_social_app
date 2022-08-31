@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({limit:"30mb",extended : true }));
 app.use (core());
 
 app.use('/posts',postRoutes);
-app.use('/posts',userRoutes);
+app.use('/user',userRoutes);
 
 const PORT =process.env.PORT || 5000;
 
